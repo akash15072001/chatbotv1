@@ -8,30 +8,10 @@ pipeline {
     }
 
     stages {
-        stage('Checkout Code') {
-            steps {
-                script {
-                    bat 'git config --global http.sslVerify false'
-                }
-                retry(3) {
-                    checkout scm
-                }
-            }
-        }
-
-        
-
-        stage('Build Docker Image') {
+        stage('Build and Push Docker Image') {
             steps {
                 script {
                     bat "docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} ."
-                }
-            }
-        }
-
-        stage('Push to Docker Hub') {
-            steps {
-                script {
                     withCredentials([usernamePassword(credentialsId: "${DOCKER_HUB_CREDENTIALS}", usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
                         bat """
                         echo %DOCKER_PASS% | docker login -u %DOCKER_USER% --password-stdin
@@ -39,14 +19,6 @@ pipeline {
                         """
                     }
                 }
-            }
-        }
-    }
-
-    post {
-        always {
-            script {
-                bat "if exist ${DOCKER_IMAGE}:${DOCKER_TAG} docker rmi ${DOCKER_IMAGE}:${DOCKER_TAG}"
             }
         }
     }
