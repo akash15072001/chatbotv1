@@ -68,7 +68,7 @@ pipeline {
     post {
         always {
             script {
-                bat "docker rmi ${DOCKER_IMAGE}:${DOCKER_TAG} || true"
+                bat "if exist ${DOCKER_IMAGE}:${DOCKER_TAG} docker rmi ${DOCKER_IMAGE}:${DOCKER_TAG}"
             }
         }
     }
