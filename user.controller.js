@@ -16,7 +16,7 @@ const DeleteUserByUserIdController = async (req, res)=>{
         
         // check organization of adminUserId and userIdToDelete is same or not, if not same throw err
         if(!orgIdofAdmin.equals(orgIdofUserToDelete)){
-            const err = new Error(`Invalid Request`)
+            const err = new Error(`Invalid Request !`)
             err.statusCode = 403
             throw err
         }
