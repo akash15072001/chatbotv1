@@ -6,7 +6,7 @@ pipeline {
     }
 
     environment {
-        DOCKER_IMAGE = "hub.docker.com/r/akash15072003/chatbot"
+        DOCKER_IMAGE = "akash15072003/chatbot"
         DOCKER_TAG = "latest"
         DOCKER_HUB_CREDENTIALS = "docker-hub-credentials"
     }
@@ -19,6 +19,7 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: "${DOCKER_HUB_CREDENTIALS}", usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
                         bat """
                         echo %DOCKER_PASS% | docker login -u %DOCKER_USER% --password-stdin
+                        docker tag ${DOCKER_IMAGE}:${DOCKER_TAG} ${DOCKER_IMAGE}:${DOCKER_TAG}
                         docker push ${DOCKER_IMAGE}:${DOCKER_TAG}
                         """
                     }
