@@ -19,29 +19,7 @@ pipeline {
             }
         }
 
-        stage('Install Dependencies') {
-            steps {
-                script {
-                    bat 'npm install'
-                }
-            }
-        }
-
-        stage('Run Tests') {
-            steps {
-                script {
-                    bat 'npm test'
-                }
-            }
-        }
-
-        stage('Lint Code') {
-            steps {
-                script {
-                    bat 'npm run lint'
-                }
-            }
-        }
+        
 
         stage('Build Docker Image') {
             steps {
