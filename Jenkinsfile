@@ -19,7 +19,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh "docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} ."
+                    bat "docker build -t %DOCKER_IMAGE%:%DOCKER_TAG% ."
                 }
             }
         }
@@ -28,8 +28,10 @@ pipeline {
             steps {
                 script {
                     withCredentials([usernamePassword(credentialsId: "${DOCKER_HUB_CREDENTIALS}", usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-                        sh "echo ${DOCKER_PASS} | docker login -u ${DOCKER_USER} --password-stdin"
-                        sh "docker push ${DOCKER_IMAGE}:${DOCKER_TAG}"
+                        bat """
+                        echo %DOCKER_PASS% | docker login -u %DOCKER_USER% --password-stdin
+                        docker push %DOCKER_IMAGE%:%DOCKER_TAG%
+                        """
                     }
                 }
             }
@@ -39,7 +41,7 @@ pipeline {
     post {
         always {
             script {
-                sh "docker rmi ${DOCKER_IMAGE}:${DOCKER_TAG} || true"
+                bat "docker rmi %DOCKER_IMAGE%:%DOCKER_TAG% || exit 0"
             }
         }
     }
