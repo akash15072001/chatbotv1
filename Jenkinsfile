@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = "akash15072003/chatbot"
+        DOCKER_IMAGE = "hub.docker.com/r/akash15072003/chatbot" // Updated Docker Hub repository URL
         DOCKER_TAG = "latest"
         DOCKER_HUB_CREDENTIALS = "docker-hub-credentials" // Add this credential in Jenkins
     }
