@@ -10,8 +10,12 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
+                script {
+                    // Disable SSL verification for Git
+                    bat 'git config --global http.sslVerify false'
+                }
                 retry(3) {
-                    git branch: 'main', url: 'git@github.com:akash15072001/chatbotv1.git'
+                    git branch: 'main', url: 'https://github.com/akash15072001/chatbotv1.git'
                 }
             }
         }
