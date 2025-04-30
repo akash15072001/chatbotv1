@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    triggers {
+        githubPush() // Trigger the pipeline automatically on GitHub push events
+    }
+
     environment {
         DOCKER_IMAGE = "hub.docker.com/r/akash15072003/chatbot"
         DOCKER_TAG = "latest"
