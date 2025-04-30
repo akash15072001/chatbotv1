@@ -2,13 +2,21 @@
   "name": "chat-bot",
   "version": "1.0.0",
   "description": "A chatbot application",
-  "main": "app.js",
+  "main": "src/app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "node src/app.js",
+    "test": "jest",
+    "lint": "eslint .",
     "build": "echo 'No build step defined'"
   },
-  "dependencies": {},
-  "devDependencies": {},
+  "dependencies": {
+    "express": "^4.18.2",
+    "dotenv": "^16.0.3"
+  },
+  "devDependencies": {
+    "jest": "^29.5.0",
+    "eslint": "^8.40.0"
+  },
   "author": "",
   "license": "ISC"
 }

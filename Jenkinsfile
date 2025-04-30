@@ -20,6 +20,30 @@ pipeline {
             }
         }
 
+        stage('Install Dependencies') {
+            steps {
+                script {
+                    sh 'npm install'
+                }
+            }
+        }
+
+        stage('Run Tests') {
+            steps {
+                script {
+                    sh 'npm test'
+                }
+            }
+        }
+
+        stage('Lint Code') {
+            steps {
+                script {
+                    sh 'npm run lint'
+                }
+            }
+        }
+
         stage('Build Docker Image') {
             steps {
                 script {

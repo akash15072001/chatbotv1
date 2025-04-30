@@ -13,9 +13,6 @@ RUN npm install
 # Copy the rest of the application code
 COPY . .
 
-# Ensure all files are included and properly built
-RUN npm run build || echo "No build script defined"
-
 # Expose the application port
 EXPOSE 3000
 
