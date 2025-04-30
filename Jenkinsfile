@@ -45,7 +45,7 @@ pipeline {
     post {
         always {
             script {
-                bat "docker rmi %DOCKER_IMAGE%:%DOCKER_TAG% || exit 0"
+                bat "docker rmi %DOCKER_IMAGE%:%DOCKER_TAG% 2>nul || exit 0" // Suppress errors if the image does not exist
             }
         }
     }
