@@ -11,8 +11,7 @@ pipeline {
         stage('Checkout Code') {
             steps {
                 script {
-                    // Disable SSL verification for Git
-                    sh 'git config --global http.sslVerify false'
+                    bat 'git config --global http.sslVerify false'
                 }
                 retry(3) {
                     checkout scm
@@ -23,7 +22,7 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 script {
-                    sh 'npm install'
+                    bat 'npm install'
                 }
             }
         }
@@ -31,7 +30,7 @@ pipeline {
         stage('Run Tests') {
             steps {
                 script {
-                    sh 'npm test'
+                    bat 'npm test'
                 }
             }
         }
@@ -39,7 +38,7 @@ pipeline {
         stage('Lint Code') {
             steps {
                 script {
-                    sh 'npm run lint'
+                    bat 'npm run lint'
                 }
             }
         }
@@ -47,7 +46,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh "docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} ."
+                    bat "docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} ."
                 }
             }
         }
@@ -56,8 +55,8 @@ pipeline {
             steps {
                 script {
                     withCredentials([usernamePassword(credentialsId: "${DOCKER_HUB_CREDENTIALS}", usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-                        sh """
-                        echo ${DOCKER_PASS} | docker login -u ${DOCKER_USER} --password-stdin
+                        bat """
+                        echo %DOCKER_PASS% | docker login -u %DOCKER_USER% --password-stdin
                         docker push ${DOCKER_IMAGE}:${DOCKER_TAG}
                         """
                     }
@@ -69,7 +68,7 @@ pipeline {
     post {
         always {
             script {
-                sh "docker rmi ${DOCKER_IMAGE}:${DOCKER_TAG} || true"
+                bat "docker rmi ${DOCKER_IMAGE}:${DOCKER_TAG} || true"
             }
         }
     }
