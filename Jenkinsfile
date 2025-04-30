@@ -11,7 +11,7 @@ pipeline {
         stage('Checkout Code') {
             steps {
                 retry(3) {
-                    git branch: 'main', url: 'https://github.com/akash15072001/chatbotv1'
+                    git branch: 'main', url: 'git@github.com:akash15072001/chatbotv1.git'
                 }
             }
         }
