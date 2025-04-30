@@ -1,0 +1,14 @@
+{
+  "name": "chat-bot",
+  "version": "1.0.0",
+  "description": "A chatbot application",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "build": "echo 'No build step defined'"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "author": "",
+  "license": "ISC"
+}
